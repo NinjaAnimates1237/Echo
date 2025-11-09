@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Echo - Chat</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="cozy-box">
+    <h1>👋 Welcome, {{ user }}</h1>
+
+    <h2>Friends</h2>
+    <ul>
+      {% for f in friends %}
+        <li>{{ f }}</li>
+      {% endfor %}
+    </ul>
+    <form action="/add_friend" method="post">
+      <input type="hidden" name="username" value="{{ user }}">
+      <input type="text" name="friend" placeholder="Friend username">
+      <button type="submit">Add</button>
+    </form>
+
+    <h2>Messages</h2>
+    <ul>
+      {% for m in messages %}
+        <li><b>{{ m.from }}:</b> {{ m.content }}</li>
+      {% endfor %}
+    </ul>
+    <form action="/send_message" method="post">
+      <input type="hidden" name="sender" value="{{ user }}">
+      <input type="text" name="receiver" placeholder="To...">
+      <input type="text" name="content" placeholder="Message...">
+      <button type="submit">Send</button>
+    </form>
+
+    <h2>Servers</h2>
+    <form action="/create_server" method="post">
+      <input type="hidden" name="user" value="{{ user }}">
+      <input type="text" name="server_name" placeholder="Server name">
+      <button type="submit">Create</button>
+    </form>
+
+    <form action="/post_server_thread" method="post">
+      <input type="hidden" name="user" value="{{ user }}">
+      <input type="text" name="server_name" placeholder="Server name">
+      <input type="text" name="content" placeholder="Thread content">
+      <button type="submit">Post</button>
+    </form>
+
+    <h2>Notifications</h2>
+    <ul>
+      {% for n in notifications %}
+        <li>{{ n }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
